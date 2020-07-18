@@ -8,5 +8,5 @@ Another hackathon, another idea. Looking over the sponsors [Aave](https://app.aa
 At the most basic level there are borrowers and lenders. Lenders deposit tokens such as [DAI](https://app.aave.com/reserve-overview/DAI?pool=Aave&referral=76) into a pool to earn interest.
 Borrowers stake one token in order to borrow another token with interest that goes to the lenders.
 
-
+For this hackathon the team imagined a university of the future. A university which transparently stakes student tuition into a money market using Aave's protocol. All interest earned during a student's enrollment can be allocated toward paying classes in a future semester. 
 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>AAVE Compound Interest Calculator</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+  <!-- <script src='main.js'></script> -->
+  <style>
+    a {
+      font-weight: bold;
+    }
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    button {
+      cursor: pointer;
+      padding: 10px 0;
+      width: 100%;
+    }
+    div {
+      margin-bottom: 50px;
+    }
+    table, td, th {
+      border: 1px solid #333;
+    }
+    table {
+      border-collapse: collapse;
+      border-color: #333;
+      width: 100%;
+    }
+    thead {
+      font-weight: bold;
+    }
+    td {
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div><h1>AAVE Compound Interest Calculator</h1></div>
+    <div>Project submission to [<a target="_blank" href="https://medium.com/encode-club/announcing-the-spark-university-hackathon-df4a2dded845) hosted by [En[code] Club](https://www.encode.club/">The Spark University Hackathon</a>](https://medium.com/encode-club/announcing-the-spark-university-hackathon-df4a2dded845) hosted by [<a target="_blank" href="https://www.encode.club/">En[code] Club</a>](https://www.encode.club/)</div>
+    <div>In the future Universities will invest student tuition into money markets like <a target="_blank" href="https://app.aave.com/?referral=76">AAVE</a> incentivizing students to graduate. Upon graduation, students will be rewarded with a diploma as well as the interest earned on their tuition.</div>
+    <div>Discover how much money you can earn graduating from University.<br>Input your University tuition info below</div>
+    <div>
+      <form>
+        <label for="cost-per-semester">Average Cost per Semester:</label><br>
+        <input type="text" data-input="cost-per-semester" name="cost-per-semester" placeholder="12500"><br>
+        <label for="interest-rate">Interest Rate:</label><br>
+        <input type="text" data-input="interest-rate" name="interest-rate" placeholder="5"><span>%</span>
+      </form>
+    </div>
+    <div>
+      Interest Earned Table
+      <table data-table="interest-earned">
+        <thead>
+          <tr>
+            <td>Semester</td>
+            <td>Tuition</td>
+            <td>Total Tuition</td>
+            <td>Earned Interest</td>
+            <td>Total Earned</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div data-type="earnings"></div>
+    <div><button data-action="calculate_interest">Calculate Interest</button></div>
+  </div>
+
+  <script>
+    const blocksPerYear = 2102400;
+    const blocksPerSemester = blocksPerYear / 2;
+    const semesters = 8;
+
+    const calculateInterestButton = document.querySelectorAll('[data-action="calculate_interest"]')[0];
+    calculateInterestButton.addEventListener('click', handleCalculateInterest);
+    handleCalculateInterest();
+
+    function handleCalculateInterest() {
+      const principal = getPrincipal();
+      const interestRate = getInterestRate();
+      const interestTable = document.querySelectorAll('[data-table="interest-earned"] tbody')[0];
+      let totalInterestEarned = 0;
+
+      interestTable.innerHTML = '';
+
+      for(let i = 1; i <= semesters; i++) {
+        const total = (principal * i) + totalInterestEarned;
+        const earnedInterest = getInterestEarned(total, interestRate);
+        totalInterestEarned += earnedInterest;
+        
+        interestTable.innerHTML += `<tr><td>${i}</td><td>${principal}</td><td>${principal * i}</td><td>${earnedInterest}</td><td>${totalInterestEarned}</td></tr>`
+      }
+
+      document.querySelectorAll('[data-type="earnings"]')[0].innerHTML = `Congratulations you earned £<b>${totalInterestEarned}</b> graduating from University`;
+    }
+
+    function getPrincipal() {
+      const target = document.querySelectorAll('input[data-input="cost-per-semester"]')[0];
+      const principal = target.value || target.placeholder;
+      return parseInt(principal, 10);
+    }
+
+    function getInterestRate() {
+      const target = document.querySelectorAll('input[data-input="interest-rate"]')[0];
+      const interestRate = target.value || target.placeholder;
+      return parseFloat(interestRate);
+    }
+
+    function getInterestEarned(principal, interestRate) {
+      console.log('get interest earned:', principal, interestRate);
+      let total = principal;
+
+      function calculateInterest() {
+        return (total * (interestRate / 100)) / blocksPerYear;
+      }
+
+      function compound() {
+        for (let i = 0; i < blocksPerSemester; i++) {
+          total += calculateInterest();
+        }
+      }
+
+      compound();
+
+      return parseInt(total - principal, 10);
+    }
+  </script>
+</body>
+</html>
