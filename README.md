@@ -10,4 +10,4 @@ Borrowers stake one token in order to borrow another token with interest that go
 
 For this hackathon the team imagined a University of the future. A University which transparently stakes student tuition into a money market using Aave's protocol. All interest earned from a student's tuition can be collected by the student upon receiving their graduation diploma.
 
-[Click here to try out the Aave compound interest calculator](https://djrosenbaum.github.io/aave-tuition/)
+[Click here to try out a concept for an Aave compound interest calculator](https://djrosenbaum.github.io/aave-tuition/)
