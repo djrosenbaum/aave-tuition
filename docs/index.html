@@ -55,6 +55,7 @@
         <input type="text" data-input="interest-rate" name="interest-rate" placeholder="5"><span>%</span>
       </form>
     </div>
+    <div data-type="earnings"></div>
     <div>
       Interest Earned Table
       <table data-table="interest-earned">
@@ -70,8 +71,6 @@
         <tbody></tbody>
       </table>
     </div>
-    <div data-type="earnings"></div>
-    <div><button data-action="calculate_interest">Calculate Interest</button></div>
   </div>
 
   <script>
@@ -79,8 +78,7 @@
     const blocksPerSemester = blocksPerYear / 2;
     const semesters = 8;
 
-    const calculateInterestButton = document.querySelectorAll('[data-action="calculate_interest"]')[0];
-    calculateInterestButton.addEventListener('click', handleCalculateInterest);
+    document.addEventListener('input', handleCalculateInterest);
     handleCalculateInterest();
 
     function handleCalculateInterest() {
@@ -104,14 +102,12 @@
 
     function getPrincipal() {
       const target = document.querySelectorAll('input[data-input="cost-per-semester"]')[0];
-      const principal = target.value || target.placeholder;
-      return parseInt(principal, 10);
+      return parseInt(target.value, 10) || parseInt(target.placeholder, 10);
     }
 
     function getInterestRate() {
       const target = document.querySelectorAll('input[data-input="interest-rate"]')[0];
-      const interestRate = target.value || target.placeholder;
-      return parseFloat(interestRate);
+      return parseFloat(target.value) || parseFloat(target.placeholder);
     }
 
     function getInterestEarned(principal, interestRate) {
