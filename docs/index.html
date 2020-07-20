@@ -44,7 +44,7 @@
 <body>
   <div>
     <div><h1>AAVE Compound Interest Calculator</h1></div>
-    <div>Project submission to [<a target="_blank" href="https://medium.com/encode-club/announcing-the-spark-university-hackathon-df4a2dded845) hosted by [En[code] Club](https://www.encode.club/">The Spark University Hackathon</a>](https://medium.com/encode-club/announcing-the-spark-university-hackathon-df4a2dded845) hosted by [<a target="_blank" href="https://www.encode.club/">En[code] Club</a>](https://www.encode.club/)</div>
+    <div>Project submission to <a target="_blank" href="https://medium.com/encode-club/announcing-the-spark-university-hackathon-df4a2dded845">The Spark University Hackathon</a> hosted by <a target="_blank" href="https://www.encode.club/">En[code] Club</a></div>
     <div>In the future Universities will invest student tuition into money markets like <a target="_blank" href="https://app.aave.com/?referral=76">AAVE</a> incentivizing students to graduate. Upon graduation, students will be rewarded with a diploma as well as the interest earned on their tuition.</div>
     <div>Discover how much money you can earn graduating from University.<br>Input your University tuition info below</div>
     <div>
@@ -93,7 +93,7 @@
         const total = (principal * i) + totalInterestEarned;
         const earnedInterest = getInterestEarned(total, interestRate);
         totalInterestEarned += earnedInterest;
-        
+
         interestTable.innerHTML += `<tr><td>${i}</td><td>${principal}</td><td>${principal * i}</td><td>${earnedInterest}</td><td>${totalInterestEarned}</td></tr>`
       }
 
